@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Picker } from '@react-native-picker/picker'; // Adicionado para o dropdown
 
 export default function App() {
 
@@ -69,26 +70,21 @@ export default function App() {
         onChangeText={(text) => setValor2(text)}
       />
 
-
-      {/* Caixa de seleção de operação */}
-      <View style={styles.op}>
-        <TouchableOpacity onPress={() => setOperacao('somar')} style={styles.botao}>
-          <Text style={styles.botaoTexto}>Somar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setOperacao('subtrair')} style={styles.botao}>
-          <Text style={styles.botaoTexto}>Subtrair</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setOperacao('multiplicar')} style={styles.botao}>
-          <Text style={styles.botaoTexto}>Multiplicar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setOperacao('dividir')} style={styles.botao}>
-          <Text style={styles.botaoTexto}>Divisão</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setOperacao('exponencial')} style={styles.botao}>
-          <Text style={styles.botaoTexto}>Exponenciação</Text>
-        </TouchableOpacity>
+      {/* Dropdown de seleção de operação */}
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={operacao}
+          onValueChange={(itemValue) => setOperacao(itemValue)}
+          style={styles.picker}
+        >
+          <Picker.Item label="Selecione uma operação..." value="" />
+          <Picker.Item label="Somar" value="somar" />
+          <Picker.Item label="Subtrair" value="subtrair" />
+          <Picker.Item label="Multiplicar" value="multiplicar" />
+          <Picker.Item label="Divisão" value="dividir" />
+          <Picker.Item label="Exponenciação" value="exponencial" />
+        </Picker>
       </View>
-
 
       <TouchableOpacity style={styles.botao}
         onPress={() => calcular()}
@@ -104,6 +100,18 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  pickerContainer: {
+    backgroundColor: '#aaaaaa',
+    borderRadius: 5,
+    marginBottom: 15,
+    width: '57%',
+    justifyContent: 'center',
+  },
+  picker: {
+    color: '#000',
+    fontSize: 18,
+    width: '100%',
+  },
   op: {
     flexDirection: 'row',
     flexWrap: 'wrap',
