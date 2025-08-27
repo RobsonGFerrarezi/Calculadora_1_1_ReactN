@@ -4,6 +4,7 @@ import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } fro
 import { Picker } from '@react-native-picker/picker'; // Adicionado para o dropdown
 
 import iconCalculadora from './assets/calc.png';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function App() {
 
@@ -66,12 +67,14 @@ export default function App() {
       <Text style={styles.labelCampo}>Digite o primeiro valor: </Text>
       <TextInput style={styles.caixaTexto}
         keyboardType="decimal-pad"
+        value={valor1.toString()}
         onChangeText={(text) => setValor1(text)}
       />
 
       <Text style={styles.labelCampo}>Digite o segundo valor: </Text>
       <TextInput style={styles.caixaTexto}
         keyboardType="decimal-pad"
+        value={valor2.toString()}
         onChangeText={(text) => setValor2(text)}
       />
 
@@ -82,12 +85,19 @@ export default function App() {
           onValueChange={(itemValue) => setOperacao(itemValue)}
           style={styles.picker}
         >
+          {/*
+          <Feather name="plus" size={24} color="black" />
+          <Feather name="minus" size={24} color="black" />
+          <Feather name="x" size={24} color="black" /> value="multiplicar" />
+          <Feather name="divide" size={24} color="black" /> value="dividir" />
+          <Feather name="power" size={24} color="black" />*/}
+
           <Picker.Item label="Selecione uma operação..." value="" />
-          <Picker.Item label="Somar" value="somar" />
-          <Picker.Item label="Subtrair" value="subtrair" />
-          <Picker.Item label="Multiplicar" value="multiplicar" />
-          <Picker.Item label="Divisão" value="dividir" />
-          <Picker.Item label="Exponenciação" value="exponencial" />
+          <Picker.Item label="➕" value="somar" />
+          <Picker.Item label="➖" value="subtrair" />
+          <Picker.Item label="✖️" value="multiplicar" />
+          <Picker.Item label="➗" value="dividir" />
+          <Picker.Item label="x^Y" value="exponencial" />
         </Picker>
       </View>
 
@@ -111,11 +121,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     width: '57%',
     justifyContent: 'center',
+    textAlign: 'center',
   },
   picker: {
     color: '#000',
     fontSize: 18,
     width: '100%',
+    textAlign: 'center',
   },
   op: {
     flexDirection: 'row',
