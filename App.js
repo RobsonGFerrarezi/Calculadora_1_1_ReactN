@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Touchable } from 'react-native';
 import { Picker } from '@react-native-picker/picker'; // Adicionado para o dropdown
 
 import iconCalculadora from './assets/calc.png';
@@ -93,6 +93,10 @@ export default function App() {
         onPress={() => calcular(operacao)}
       >
         <Text style={styles.botaoTexto}>Calcular</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity onPress={Limpar}>
+        <Feather name="trash-2" size={30} color="#f000ff" style={{ marginTop: 20 }} />
       </TouchableOpacity>
 
       <Text style={styles.labelCampo}>Resultado: {resultado}</Text>
