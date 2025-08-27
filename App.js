@@ -13,7 +13,7 @@ export default function App() {
   const [resultado, setResultado] = useState(0);
   const [operacao, setOperacao] = useState('')
 
-  function calcular() {
+  function calcular(operacao) {
     if (valor1 === '' || valor2 === '') {
       Alert.alert('ERRO:', 'Por favor, preencha todos os campos!');
       return;
@@ -21,41 +21,28 @@ export default function App() {
 
     const v1 = Number.parseFloat(valor1.replace(',', '.'));
     const v2 = Number.parseFloat(valor2.replace(',', '.'));
-
-    switch (operacao) {
-      case 'somar':
-        const soma = v1 + v2;
-        setResultado(soma);
-        Alert.alert('Resultado:', `A soma: ${valor1} + ${valor2} = ${soma}`);
-        break;
-      case 'subtrair':
-        const sub = v1 - v2;
-        setResultado(sub);
-        Alert.alert('Resultado:', `A subtração: ${valor1} - ${valor2} = ${sub}`);
-        break;
-      case 'multiplicar':
-        const prod = v1 * v2;
-        setResultado(prod);
-        Alert.alert('Resultado:', `O produto: ${valor1} x ${valor2} = ${prod}`);
-        break;
-      case 'dividir':
-        if (v2 === 0) {
-          Alert.alert('ERRO:', 'O segundo valor não pode ser 0 para uma divisão!');
+    if (operacao === ''){
+      Alert.alert('ERRO:', 'Selecione uma operação!');
+      return;
+    }
+    else{
+        if(isNaN(v1) || isNaN(v2)){
+          Alert.alert('ERRO:', 'Valores inválidos! Use apenas números.');
           return;
         }
-        const div = v1 / v2;
-        setResultado(div);
-        Alert.alert('Resultado:', `A divisão: ${valor1} / ${valor2} = ${div}`);
-        break;
-      case 'exponencial':
-        const expo = v1 ** v2;
-        setResultado(expo);
-        Alert.alert('Resultado:', `A exponencial: ${valor1} ^ ${valor2} = ${expo}`);
-        break;
-      default:
-        Alert.alert('ERRO:', 'Selecione uma operação!');
-    }
-    
+        else{
+          let res = `${v1} ${operacao} ${v2}`;
+          setResultado(eval(res));
+          Alert.alert('Resultado:', `O resultado: ${v1} ${operacao} ${v2} = ${eval(res)}`);
+        }
+    }    
+  }
+
+  function Limpar(){
+    setValor1(0);
+    setValor2(0);
+    setResultado(0);
+    setOperacao('');
   }
 
 
@@ -78,7 +65,7 @@ export default function App() {
         onChangeText={(text) => setValor2(text)}
       />
 
-      {/* Dropdown de seleção de operação */}
+      
       <View style={styles.pickerContainer}>
         <Picker
           selectedValue={operacao}
@@ -86,6 +73,7 @@ export default function App() {
           style={styles.picker}
         >
           {/*
+          Icons do EXPO
           <Feather name="plus" size={24} color="black" />
           <Feather name="minus" size={24} color="black" />
           <Feather name="x" size={24} color="black" /> value="multiplicar" />
@@ -93,16 +81,16 @@ export default function App() {
           <Feather name="power" size={24} color="black" />*/}
 
           <Picker.Item label="Selecione uma operação..." value="" />
-          <Picker.Item label="➕" value="somar" />
-          <Picker.Item label="➖" value="subtrair" />
-          <Picker.Item label="✖️" value="multiplicar" />
-          <Picker.Item label="➗" value="dividir" />
-          <Picker.Item label="x^Y" value="exponencial" />
+          <Picker.Item label="➕" value="+" />
+          <Picker.Item label="➖" value="-" />
+          <Picker.Item label="✖️" value="*" />
+          <Picker.Item label="➗" value="/" />
+          <Picker.Item label="x^Y" value="**" />
         </Picker>
       </View>
 
       <TouchableOpacity style={styles.botao}
-        onPress={() => calcular()}
+        onPress={() => calcular(operacao)}
       >
         <Text style={styles.botaoTexto}>Calcular</Text>
       </TouchableOpacity>
