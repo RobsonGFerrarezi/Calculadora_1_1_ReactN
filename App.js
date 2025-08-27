@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker'; // Adicionado para o dropdown
+
+import iconCalculadora from './assets/calc.png';
 
 export default function App() {
 
@@ -58,6 +60,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Image source={iconCalculadora} style={{ width: 100, height: 100, marginBottom: 15 }} />
+      <Text style={styles.titulo}>Calculadora</Text>
+
       <Text style={styles.labelCampo}>Digite o primeiro valor: </Text>
       <TextInput style={styles.caixaTexto}
         keyboardType="decimal-pad"
